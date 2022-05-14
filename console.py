@@ -131,8 +131,12 @@ class HBNBCommand(cmd.Cmd):
             value = value.replace('\\', '')
             if isinstance(value, str):
                 value = value.replace(' ', '_')
-            elif isinstance(value, float):
-                value = value.replace(',', '.')
+
+            value = value.replace(',', '.')
+            if isinstance(value, float):    
+                value = Decimal(value)
+            elif isinstance(value, int):    
+                value = int(value)
             arg = cls + ' ' + new_instance.id + ' ' + par[0] + ' ' + value
             HBNBCommand.do_update(self, arg)
         storage.save()
