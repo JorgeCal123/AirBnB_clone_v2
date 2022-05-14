@@ -8,7 +8,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 class BaseModel:
-    """A base class for all hbnb models"""
+    """chnage basemol by Jorge"""
     id = Column(String(60), primary_key=True, nullable=False)
     created_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
