@@ -125,6 +125,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[cls]()
+        print(new_instance)
         for i in range(1, len(args)):
             par = args[i].split('=')
             value = par[1]
@@ -275,7 +276,6 @@ class HBNBCommand(cmd.Cmd):
 
         # generate key from class and id
         key = c_name + "." + c_id
-
         # determine if key is present
         if key not in storage.all():
             print("** no instance found **")

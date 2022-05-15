@@ -22,7 +22,6 @@ class DBStorage:
                 }
     def __init__(self):
         """contructor of db"""
-        print(getenv("HBNB_MYSQL_USER"))
         self.__engine =create_engine('mysql+mysqldb://{}:{}@{}/{}'
                                       .format(getenv("HBNB_MYSQL_USER"), getenv("HBNB_MYSQL_PWD"),
                                       getenv("HBNB_MYSQL_HOST"), getenv("HBNB_MYSQL_DB")), pool_pre_ping=True)
@@ -33,12 +32,12 @@ class DBStorage:
         """Returns a dictionary of models currently in storage"""
         fclass = {}
         if cls is None:
-            #data = self.__session.query(User).all()
-            data = self.__session.query(State).all()
+            data = self.__session.query(User).all()
+            data += self.__session.query(State).all()
             data += self.__session.query(City).all()
-            #data += self.__session.query(Amenity).all()
-            #data += self.__session.query(Place).all()
-            #data += self.__session.query(Review).all()
+            data += self.__session.query(Amenity).all()
+            data += self.__session.query(Place).all()
+            data += self.__session.query(Review).all()
             for value in data:
                 key = value.__name__ + '.' + value.id
                 fclass[key] = value
