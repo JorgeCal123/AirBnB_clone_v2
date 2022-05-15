@@ -125,7 +125,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[cls]()
-        print(new_instance)
         for i in range(1, len(args)):
             par = args[i].split('=')
             value = par[1]
