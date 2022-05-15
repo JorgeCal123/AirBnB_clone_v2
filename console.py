@@ -130,6 +130,8 @@ class HBNBCommand(cmd.Cmd):
             par = args[i].split('=')
             value = par[1]
             value = value.replace('\\', '')
+            value = value.replace('\'', '')
+            value = value.replace('\"', '')
             if isinstance(value, str):
                 value = value.replace(' ', '_')
 
