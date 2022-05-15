@@ -33,6 +33,7 @@ class HBNBCommand(cmd.Cmd):
 
     def preloop(self):
         """Prints if isatty is false"""
+        print("hola danni y su coteñita")
         if not sys.__stdin__.isatty():
             print('(hbnb) ', end="")
 
@@ -142,6 +143,7 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
         print(new_instance.id)
         storage.save()
+        
 
     def help_create(self):
         """ Help information for the create method """
