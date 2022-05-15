@@ -17,7 +17,6 @@ class FileStorage:
             for key, value in FileStorage.__objects.items():
                 if isinstance(value, cls):
                     fclass[key] = value
-                #print(isinstance(value, cls))
             return fclass
 
     def new(self, obj):
@@ -34,6 +33,7 @@ class FileStorage:
             json.dump(temp, f)
 
     def delete(self, obj=None):
+        """delete storage dictionary to file"""
         if obj in FileStorage.__objects.values():
             key = obj.to_dict()['__class__'] + '.' + obj.id
             del FileStorage.__objects[key]
@@ -59,6 +59,6 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
