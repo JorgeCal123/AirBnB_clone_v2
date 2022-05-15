@@ -5,33 +5,37 @@ import datetime
 import models
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+import os
 
-Base = declarative_base()
+if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    Base = declarative_base()
+else:
+    Base = object
 
 class BaseModel:
     """class base model"""
-    id = Column(String(60), primary_key=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+        id = Column(String(60), primary_key=True, nullable=False)
+        created_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
+        updated_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
 
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
-        print("entra init")
         if not kwargs:
-            
+            from models import storage
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
-            models.storage.new(self)
+
         else:
-            print(type(models.storage))
-            kwargs['updated_at'] = datetime.datetime.strptime(kwargs['updated_at'],
+            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.datetime.strptime(kwargs['created_at'],
+            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
             del kwargs['__class__']
             self.__dict__.update(kwargs)
+
 
     def __str__(self):
         """Returns a string representation of the instance"""

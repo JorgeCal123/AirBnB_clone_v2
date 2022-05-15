@@ -4,10 +4,10 @@
 from os import getenv
 
 if getenv('HBNB_TYPE_STORAGE') == "db":
-    from models.engine.file_storage import FileStorage
+    from models.engine.db_storage import DBStorage
     print("entra y nose porque ")
     storage = DBStorage()
 else:
-    from models.engine.db_storage import DBStorage
+    from models.engine.file_storage import FileStorage
     storage = FileStorage()
 storage.reload()
