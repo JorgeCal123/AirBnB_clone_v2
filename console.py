@@ -33,7 +33,6 @@ class HBNBCommand(cmd.Cmd):
 
     def preloop(self):
         """Prints if isatty is false"""
-        print("hola danni y su coteñita")
         if not sys.__stdin__.isatty():
             print('(hbnb) ', end="")
 

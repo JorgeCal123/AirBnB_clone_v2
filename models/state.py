@@ -15,3 +15,10 @@ class State(BaseModel, Base):
                               cascade="delete")
     else:
         name = ""
+        @property
+        def cities(self):
+            list_c = []
+            for c in models.storage.all('City').values():
+                if(c.state_id == self.id):
+                    list_c.append(c)
+            return list_c
