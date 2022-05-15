@@ -9,7 +9,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-
+from os import getenv
 
 class DBStorage:
     __engine = None
@@ -19,20 +19,13 @@ class DBStorage:
                'State': State, 'City': City, 'Amenity': Amenity,
                'Review': Review
               }
-    configdb = {
-        "HBNB_MYSQL_USER" : "",
-        "HBNB_MYSQL_PWD": "",
-        "HBNB_MYSQL_HOST": "",
-        "HBNB_MYSQL_DB": "",
-        "HBNB_TYPE_STORAGE": "",
-        "HBNB_ENV": ""
-    }
+
     def __init__(self):
         """contructor of db"""
         self.__engine =create_engine('mysql+mysqldb://{}:{}@{}/{}'
-                                      .format(self.configdb["HBNB_MYSQL_USER"], self.configdb["HBNB_MYSQL_PWD"],
-                                      self.configdb["HBNB_MYSQL_HOST"], self.configdb["HBNB_MYSQL_DB"]), pool_pre_ping=True)
-        if self.configdb["HBNB_ENV"] == "test":
+                                      .format(getenv["HBNB_MYSQL_USER"], getenv["HBNB_MYSQL_PWD"],
+                                      getenv["HBNB_MYSQL_HOST"], getenv["HBNB_MYSQL_DB"]), pool_pre_ping=True)
+        if getenv["HBNB_ENV"] == "test":
             Base.metadata.drop_all(self.__engine)
     
     def all(self, cls=None):
