@@ -132,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
             value = value.replace('\'', '')
             value = value.replace('\"', '')
             if isinstance(value, str):
-                value = value.replace(' ', '_')
+                value = value.replace('_', ' ')
 
             value = value.replace(',', '.')
             if isinstance(value, float):    
