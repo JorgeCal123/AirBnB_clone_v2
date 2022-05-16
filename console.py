@@ -142,6 +142,7 @@ class HBNBCommand(cmd.Cmd):
 
             HBNBCommand.do_update(self, arg, new_instance)
         print(new_instance.id)
+        new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -335,10 +336,7 @@ class HBNBCommand(cmd.Cmd):
                 # print(att_val)
                 # update dictionary with name, value pair
                 new_dict.__dict__.update({att_name: att_val})
-        if obj is not None:
-            storage.new(obj)
-            storage.save()
-        else:
+        if obj is None:
             new_dict.save()  # save updates to file
 
     def help_update(self):
