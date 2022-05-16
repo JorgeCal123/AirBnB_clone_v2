@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Console Module """
 import cmd
+from hashlib import new
 import sys
 from decimal import *
 from models.base_model import BaseModel
@@ -20,16 +21,16 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+        'BaseModel': BaseModel, 'User': User, 'Place': Place,
+        'State': State, 'City': City, 'Amenity': Amenity,
+        'Review': Review
+    }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-             'number_rooms': int, 'number_bathrooms': int,
-             'max_guest': int, 'price_by_night': int,
-             'latitude': float, 'longitude': float
-            }
+        'number_rooms': int, 'number_bathrooms': int,
+        'max_guest': int, 'price_by_night': int,
+        'latitude': float, 'longitude': float
+    }
 
     def preloop(self):
         """Prints if isatty is false"""
@@ -133,16 +134,14 @@ class HBNBCommand(cmd.Cmd):
             value = value.replace('\"', '')
 
             value = value.replace(',', '.')
-            if isinstance(value, float):    
+            if isinstance(value, float):
                 value = Decimal(value)
-            elif isinstance(value, int):    
+            elif isinstance(value, int):
                 value = int(value)
             arg = cls + ' ' + new_instance.id + ' ' + par[0] + ' ' + value
-            HBNBCommand.do_update(self, arg)
-        storage.save()
+
+            HBNBCommand.do_update(self, arg, new_instance)
         print(new_instance.id)
-        storage.save()
-        
 
     def help_create(self):
         """ Help information for the create method """
@@ -250,7 +249,7 @@ class HBNBCommand(cmd.Cmd):
         """ """
         print("Usage: count <class_name>")
 
-    def do_update(self, args):
+    def do_update(self, args, obj=None):
         """ Updates a certain object with new info """
         c_name = c_id = att_name = att_val = kwargs = ''
 
@@ -276,9 +275,12 @@ class HBNBCommand(cmd.Cmd):
         # generate key from class and id
         key = c_name + "." + c_id
         # determine if key is present
-        if key not in storage.all():
-            print("** no instance found **")
-            return
+        if obj is not None:
+            pass
+        else:
+            if key not in storage.all():
+                print("** no instance found **")
+                return
 
         # first determine if kwargs or args
         if '{' in args[2] and '}' in args[2] and type(eval(args[2])) is dict:
@@ -310,8 +312,10 @@ class HBNBCommand(cmd.Cmd):
             args = [att_name, att_val]
 
         # retrieve dictionary of current objects
-        new_dict = storage.all()[key]
-
+        if obj is None:
+            new_dict = storage.all()[key]
+        else:
+            new_dict = obj
         # iterate through attr names and values
         for i, att_name in enumerate(args):
             # block only runs on even iterations
@@ -328,11 +332,14 @@ class HBNBCommand(cmd.Cmd):
                     att_val = HBNBCommand.types[att_name](att_val)
                 if isinstance(att_val, str):
                     att_val = att_val.replace('_', ' ')
-                #print(att_val)
+                # print(att_val)
                 # update dictionary with name, value pair
                 new_dict.__dict__.update({att_name: att_val})
-
-        new_dict.save()  # save updates to file
+        if obj is not None:
+            storage.new(obj)
+            storage.save()
+        else:
+            new_dict.save()  # save updates to file
 
     def help_update(self):
         """ Help information for the update class """
