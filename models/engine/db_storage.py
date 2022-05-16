@@ -52,14 +52,10 @@ class DBStorage:
 
     def new(self, obj):
         """add the object to the current database session"""
-        print("add obj")
-        print(type(obj))
-
         self.__session.add(obj)
 
     def save(self):
         """commit all changes of the current database session"""
-        print("sube a mysql")
         self.__session.commit()
 
     def delete(self, obj=None):

@@ -16,7 +16,6 @@ class State(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         cities = relationship("City", backref="states",
                               cascade="all, delete, delete-orphan")
-        print("entra state")
     else:
 
         name = ""
