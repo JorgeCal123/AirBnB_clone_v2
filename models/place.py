@@ -6,19 +6,19 @@ from os import getenv
 import sqlalchemy
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
-
-class Place(BaseModel, Base):
-    """ A place to stay """
-
-    __tablename__ = 'places'
-    
-    """place_amenity = Table("place_amenity", Base.metadata,
+from models.review import Rev
+place_amenity = Table("place_amenity", Base.metadata,
                           Column("place_id", String(60),
                                  ForeignKey("places.id"),
                                  primary_key=True),
                           Column("amenity_id", String(60),
                                  ForeignKey("amenities.id"),
-                                 primary_key=True)"""
+                                 primary_key=True)
+class Place(BaseModel, Base):
+    """ A place to stay """
+
+    __tablename__ = 'places'
+
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
@@ -33,8 +33,8 @@ class Place(BaseModel, Base):
 
         reviews = relationship("Review", backref="places",
                               cascade="all, delete, delete-orphan")
-        """amenities = relationship("Amenity", secondary=place_amenity,
-                                 viewonly=False)"""
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                 viewonly=False)
 
     else:
         city_id = ""
