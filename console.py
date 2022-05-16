@@ -126,6 +126,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[cls]()
+        state = State(name="California")
         for i in range(1, len(args)):
             par = args[i].split('=')
             value = par[1]

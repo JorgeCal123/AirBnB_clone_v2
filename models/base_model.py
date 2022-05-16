@@ -30,14 +30,24 @@ class BaseModel:
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
         else:
-            kwargs['updated_at'] = datetime.datetime.strptime(
-                                   kwargs['updated_at'],
-                                   '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.datetime.strptime(
-                                   kwargs['created_at'],
-                                   '%Y-%m-%dT%H:%M:%S.%f')
-            del kwargs['__class__']
-            self.__dict__.update(kwargs)
+            if "id" not in kwargs:
+                kwargs["id"] = self.id = str(uuid.uuid4())
+            if "updated_at" not in kwargs:
+                kwargs['updated_at'] = datetime.datetime.now().isoformat()
+            updated_at = kwargs['updated_at']
+            kwargs['updated_at'] = datetime.datetime.\
+                strptime(updated_at, '%Y-%m-%dT%H:%M:%S.%f')
+
+            if "created_at" not in kwargs:
+                kwargs['created_at'] = datetime.datetime.now().isoformat()
+            created_at = kwargs['created_at']
+            kwargs['created_at'] = datetime.datetime.\
+                strptime(created_at, '%Y-%m-%dT%H:%M:%S.%f')
+            if '__class__' in kwargs:
+                del kwargs['__class__']
+            # self.__dict__.update(kwargs)
+            for key, value in kwargs.items():
+                setattr(self, key, value)
 
     def __str__(self):
         """Returns a string representation of the instance"""
