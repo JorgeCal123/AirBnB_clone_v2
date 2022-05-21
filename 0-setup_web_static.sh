@@ -3,13 +3,13 @@
 
 if [ ! -x /usr/sbin/nginx ];
 then
-    apt-get -y update
-    apt-get -y install nginx
-    ufw allow  'Nginx HTTP' #on port 80
-    service nginx restart
+    sudo apt-get -y update
+    sudo apt-get -y install nginx
+    sudo ufw allow  'Nginx HTTP' #on port 80
+    sudo service nginx restart
 else
 
-    service nginx restart
+    sudo service nginx restart
 fi
 mkdir -p /data/web_static/releases/test
 touch  /data/web_static/releases/test/index.html
