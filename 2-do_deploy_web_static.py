@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Fabric script hat distributes an archive to your web servers, using the function do_deploy"""
+"""Fabric script hat distributes an archive to your web servers"""
 from fabric.api import put, run, env
 from os.path import exists
 
