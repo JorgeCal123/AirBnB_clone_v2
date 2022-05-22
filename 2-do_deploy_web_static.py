@@ -1,27 +1,27 @@
 #!/usr/bin/python3
 """Fabric script hat distributes an archive to your web servers, using the function do_deploy"""
 from fabric.api import put, run, env
-import os
+from os.path import exists
 
-env.hosts["54.226.20.179", "3.89.59.76"]
+env.hosts = ["54.226.20.179", "3.89.59.76"]
+
+
 def do_deploy(archive_path):
     """distributes an archive to the web servers"""
-    if os.path.exists(archive_path) is False:
+    if exists(archive_path) is False:
         return False
     try:
-            put(archive_path, "/tmp/")
-            file_name = archive_path.split("/")[1]
-            file_name2 = file_name.split(".")[0]
-            final_name = "/data/web_static/releases/" + file_name2 + "/"
-            run("mkdir -p " + final_name)
-            run("tar -xzf /tmp/" + file_name + " -C " + final_name)
-            run("rm /tmp/" + file_name)
-            run("mv " + final_name + "web_static/* " + final_name)
-            run("rm -rf " + final_name + "web_static")
-            run("rm -rf /data/web_static/current")
-            run("ln -s " + final_name + " /data/web_static/current")
-            print("New version deployed!")
-
+        file_n = archive_path.split("/")[-1]
+        no_ext = file_n.split(".")[0]
+        path = "/data/web_static/releases/"
+        put(archive_path, '/tmp/')
+        run('mkdir -p {}{}/'.format(path, no_ext))
+        run('tar -xzf /tmp/{} -C {}{}/'.format(file_n, path, no_ext))
+        run('rm /tmp/{}'.format(file_n))
+        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, no_ext))
+        run('rm -rf {}{}/web_static'.format(path, no_ext))
+        run('rm -rf /data/web_static/current')
+        run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
         return True
     except:
         return False
