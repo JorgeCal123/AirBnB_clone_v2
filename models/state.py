@@ -2,6 +2,7 @@
 """ State Module for HBNB project """
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey
+
 from os import getenv
 from sqlalchemy.orm import relationship
 import models
@@ -21,8 +22,9 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """return list of cities relation with this state"""
+            from models.city import City
             list_c = []
-            for c in models.storage.all(models.City).values():
+            for c in models.storage.all(City).values():
                 if(c.state_id == self.id):
                     list_c.append(c)
             return list_c
