@@ -7,7 +7,7 @@
         <H1>States</H1>
 	<UL>
         {% for dict in states_city|sort(attribute='name') %}
-      	    <LI>{{ dict.id }}: <B>{{ dict.name }}</B></LI>
+      	    <LI>{{ dict.id }}: <B>{{ dict.name }}</B>
                 <UL>
                 {% for valor in states_city[dict] %}
                         <LI>{{ valor.id }}: <B>{{ valor.name }}</B></LI>
