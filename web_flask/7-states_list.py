@@ -15,10 +15,9 @@ def teardown_db(exception):
 @app.route('/states_list', strict_slashes=False)
 def task_8():
     """display a HTML page"""
-    states = storage.all(State)
-    states = sorted(states, key=lambda x: x['name'])
-    states = list(states.values())
-    return render_template('7-states_list.html', list_states = States)
+    states = list(storage.all(State).values())
+    states = sorted(states, key=lambda x: x.name)
+    return render_template('7-states_list.html', list_states = states)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')

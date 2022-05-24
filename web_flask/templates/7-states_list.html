@@ -5,9 +5,9 @@
     </HEAD>
     <BODY>
         <H1>States</H1>
-	<ul class="list_states">
-   		{% for valor in lista %}
-      		<li class="list_states-item"> {{ valor.id }}: <B>{{valor.name}}</B></li>
+	<ul>
+   		{% for valor in list_states %}
+      		<li{{ valor.id }}: <B>{{valor.name}}</B></li>
    		{% endfor %}
 	</ul>
     </BODY>
