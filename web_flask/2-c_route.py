@@ -23,7 +23,7 @@ def task_1():
 def task_2(text):
     """return C with text how param"""
     msm = text.replace('_', ' ')
-    return ("C %s" % msm)
+    return "C %s" % msm
 
 
 if __name__ == '__main__':
