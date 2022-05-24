@@ -22,7 +22,8 @@ def task_1():
 @app.route('/c/<text>', strict_slashes=False)
 def task_2(text):
     """returns HBNB"""
-    return 'C ' + text.replace('_', ' ')
+    msm = 'C {}'.format(text.replace('_', ' '))
+    return msm
 
 
 if __name__ == '__main__':
