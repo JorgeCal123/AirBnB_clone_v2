@@ -21,7 +21,7 @@ def task_1():
 
 @app.route('/c/<text>', strict_slashes=False)
 def task_2(text):
-    """returns HBNB"""
+    """return C with text how param"""
     msm = text.replace('_', ' ')
     return ("C %s" % msm)
 
