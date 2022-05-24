@@ -19,6 +19,7 @@ class State(BaseModel, Base):
                               cascade="all, delete, delete-orphan")
     else:
         name = ""
+
         @property
         def cities(self):
             """return list of cities relation with this state"""
