@@ -5,16 +5,16 @@
     </HEAD>
     <BODY>
         <H1>States</H1>
-	<ul>
+	<UL>
         {% for dict in states_city %}
-      	    <li>{{ dict.id }}: <B>{{ dict.name }}</B></li>
-                <ul>
+      	    <LI>{{ dict.id }}: <B>{{ dict.name }}</B></LI>
+                <UL>
                 {% for valor in states_city[dict] %}
-                    <li>{{ valor.id }}: <B>{{ valor.name }}</B></li>
+                    <LI>{{ valor.id }}: <B>{{ valor.name }}</B></LI>
                 {% endfor %}
-                </ul>
-            </li>
+                </UL>
+            </LI>
         {% endfor %}
-	</ul>
+	</UL>
     </BODY>
 </HTML>
