@@ -18,10 +18,12 @@ def task_1():
     """returns HBNB"""
     return 'HBNB'
 
+
 @app.route('/c/<text>', strict_slashes=False)
 def task_2(text):
     """returns HBNB"""
     return 'C ' + text.replace('_', ' ')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')

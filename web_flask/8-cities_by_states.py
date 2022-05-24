@@ -27,5 +27,6 @@ def task_9():
         states_city[value] = arrc
     return render_template('8-cities_by_states.html', states_city=states_city)
 
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
