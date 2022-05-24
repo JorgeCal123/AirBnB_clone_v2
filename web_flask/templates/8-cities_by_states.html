@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+        <H1>States</H1>
+	<ul>
+            {% for dict in states_city %}
+      	    <li>{{ dict.id }}: <B>{{ dict.name }}</B></li>
+                <ul>
+                    {% for valor in states_city[dict] %}
+                    <li>{{ valor.id }}: <B>{{ valor.name }}</B></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+	</ul>
+    </BODY>
+</HTML>
