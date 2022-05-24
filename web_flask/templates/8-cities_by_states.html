@@ -6,15 +6,15 @@
     <BODY>
         <H1>States</H1>
 	<ul>
-            {% for dict in states_city %}
+        {% for dict in states_city %}
       	    <li>{{ dict.id }}: <B>{{ dict.name }}</B></li>
                 <ul>
-                    {% for valor in states_city[dict] %}
+                {% for valor in states_city[dict] %}
                     <li>{{ valor.id }}: <B>{{ valor.name }}</B></li>
-                    {% endfor %}
+                {% endfor %}
                 </ul>
             </li>
-            {% endfor %}
+        {% endfor %}
 	</ul>
     </BODY>
 </HTML>
