@@ -16,7 +16,7 @@ def teardown_db(exception):
     storage.close()
 
 
-@app.route('/cities_by_states', strict_slashes=False)
+@app.route('/hbnb_filters', strict_slashes=False)
 def task_9():
     """display a HTML page"""
     states = list(storage.all(State).values())
